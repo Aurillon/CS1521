@@ -1,0 +1,11 @@
+#ifndef IS_PALINDROME_
+#define IS_PALINDROME_
+
+#include <iostream>
+#include <string>
+#include "LinkedQueue.h"
+#include "LinkedStack.h"
+
+bool isPalindrome(const std::string&);
+
+#endif
