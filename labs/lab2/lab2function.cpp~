@@ -1,0 +1,41 @@
+#include "lab2function.h"
+#include <iostream>
+
+void writeLine(std::string str, int num){
+
+   if(num <= 0){
+      //End of Line
+      //std::cout << "EOL" << std::endl;
+      std::cout << "" << std::endl;
+   }
+   else{
+      if(str.length() > num){
+         str = str.erase(num, str.length());
+         writeLine(str, num);
+      }
+      else if((num % str.length()) >= 1){
+         std::cout << str;
+         num = (num - str.length());
+         writeLine(str, num);
+      }
+      else{
+         std::cout << str[0];
+         num--;
+         writeLine(str, num);
+      }
+   }
+}
+
+void writeLine(std::string str, int num, int lines){
+   if(lines <= 0 || str.length() < 1 || num <= 0){
+      std::cout << "lines, string length, or how many iterations is";
+      std::cout << "below zero" << std::endl;
+      return;
+   }
+   else{
+      for(int i = 0; i < lines; i++){
+         //std::cout << "|";
+         writeLine(str, num);
+      }
+   }
+}

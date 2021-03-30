@@ -1,0 +1,26 @@
+#include "lab2function.cpp"
+
+int main(){
+   writeLine("abs*", 10);
+   writeLine("*", -2);
+   writeLine("", 0);
+   writeLine("$", 1);
+   writeLine("747", 20);
+
+   writeLine("*", -5, -2);
+   writeLine("", 5, -2);
+   writeLine("$", 5, -2);
+   writeLine("a^", 5, -2);
+
+   writeLine("*", -5, 0);
+   writeLine("", 5, 0);
+   writeLine("$", 5, 0);
+   writeLine("a%", 5, 0);
+
+   writeLine("*", -5, 2);
+   writeLine("", 5, 2);
+   writeLine("$", 5, 2);
+   writeLine("a!", 5, 2);
+
+   return 0;
+}

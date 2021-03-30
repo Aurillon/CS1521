@@ -1,0 +1,81 @@
+/** @ArraySet.h
+ *
+ *  @course CS1521
+ *  @section 1
+ *  @term Spring 2019
+ *
+ *  Header file for an array-based implementation of the ADT bag.
+ *
+ *  Adapted from page 100 in Carrano 7e.
+ *
+ *  @author Frank M. Carrano
+ *  @author Timothy Henry
+ *  @author Steve Holtz
+ *
+ *  @date 08 Feb 2019
+ *
+ *  @version 7.0 */
+
+#ifndef ARRAY_SET_
+#define ARRAY_SET_
+
+#include <vector>
+
+#include "SetInterface.h"
+
+/** @class ArraySet ArraySet.h "ArraySet.h"
+ *
+ *  Specification of an array-based ADT bag. */
+template <typename ItemType>
+class ArraySet : public SetInterface<ItemType> {
+  private:
+   /** Maximum capacity of this bag. */
+   static const int DEFAULT_CAPACITY = 6;
+
+   /** Data storage. */
+   ItemType items[DEFAULT_CAPACITY];
+
+   /** Number of items in this bag. */
+   int itemCount = 0;
+
+   /** Maximum capacity of this bag. */
+   int maxItems = DEFAULT_CAPACITY;
+
+   /** Gets the index of target in the array 'items' in this bag.
+    *
+    * @param target The ItemType value to retrieve the index of.
+    *
+    * @return The index of the element in the array 'items' that
+    *         contains 'target' or -1 if the array does not contain
+    *         'target'. */
+   int getIndexOf(const ItemType& target) const;
+
+  public:
+   /** Default constructor. */
+   ArraySet() = default;
+
+   /** Virtual destructor. */
+   virtual ~ArraySet() = default;
+
+   virtual int getCurrentSize() const;
+
+   virtual bool isEmpty() const;
+
+   virtual bool add(const ItemType& newEntry);
+
+   virtual bool remove(const ItemType& anEntry);
+
+   virtual void clear();
+
+   virtual int getFrequencyOf(const ItemType& anEntry) const;
+
+   virtual bool contains(const ItemType& anEntry) const;
+
+   virtual  difference(
+
+   virtual std::vector<ItemType> toVector() const;
+};
+
+#include "ArraySet.cpp"
+
+#endif

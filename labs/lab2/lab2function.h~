@@ -1,0 +1,4 @@
+#include <string>
+void writeLine(std::string, int);
+void writeLine(str::string, int, int);
+

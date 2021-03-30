@@ -1,0 +1,545 @@
+Script started on Tue 19 Feb 2019 04:33:01 PM CST
+[4makka[24m:[1m~/cs1521/labs/lab3[0m% pwd
+/home/csugrads/staub054/cs1521/labs/lab3
+[4makka[24m:[1m~/cs1521/labs/lab3[0m% ls -l
+total 48
+-rw------- 1 staub054 student 3039 Feb 19 16:02 ArraySet.cpp
+-rw------- 1 staub054 student 2863 Feb 10 00:14 ArraySet.cpp~
+-rw------- 1 staub054 student 3030 Feb 19 16:32 ArraySet.h
+-rw------- 1 staub054 student 1788 Feb 10 00:05 ArraySet.h~
+-rw------- 1 staub054 student 3429 Feb 18 14:01 ArraySetTester.cpp
+-rw------- 1 staub054 student 3046 Feb 10 00:17 ArraySetTester.cpp~
+drwx------ 3 staub054 student 4096 Feb 19 16:32 build
+-rw------- 1 staub054 student  105 Feb 10 06:58 CMakeLists.txt
+-rw------- 1 staub054 student  105 Feb 10 06:57 CMakeLists.txt~
+-rw------- 1 staub054 student 3049 Feb 11 16:08 lab3.cpp
+-rw------- 1 staub054 student 3011 Feb 10 07:00 lab3.cpp~
+-rw------- 1 staub054 student 2609 Feb 11 14:12 SetInterface.h
+-rw------- 1 staub054 student    0 Feb 19 16:33 typescript
+[4makka[24m:[1m~/cs1521/labs/lab3[0m% cat CmakeLists.txt
+cat: CmakeLists.txt: No such file or directory
+[4makka[24m:[1m~/cs1521/labs/lab3[0m% cat CmakeLists.txt[P[1@M
+project(Lab3)
+
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=c++14")
+
+add_executable(lab3 lab3.cpp)
+[4makka[24m:[1m~/cs1521/labs/lab3[0m% cat -n A
+ArraySet.cpp~        ArraySet.h~          ArraySetTester.cpp~ 
+ArraySet.cpp         ArraySet.h           ArraySetTester.cpp 
+[4makka[24m:[1m~/cs1521/labs/lab3[0m% cat -n ArraySetTe
+ArraySetTester.cpp~  ArraySetTester.cpp   
+[4makka[24m:[1m~/cs1521/labs/lab3[0m% cat -n ArraySetTester.cpp
+     1	/** @file
+     2	 *
+     3	 *  @course CS1521
+     4	 *  @section 1
+     5	 *  @term Spring 2019
+     6	 *
+     7	 *  Testing the ArraySet class template.
+     8	 *
+     9	 *  Adapted from pages 103-104, 110-111 in Carrano 7e.
+    10	 *
+    11	 *  @author Frank M. Carrano
+    12	 *  @author Timothy Henry
+    13	 *  @author Steve Holtz
+    14	 *
+    15	 *  @date 05 Feb 2019
+    16	 *
+    17	 *  @version 7.0 */
+    18	
+    19	#include <iostream>
+    20	#include <string>
+    21	#include <vector>
+    22	
+    23	using std::cout;
+    24	using std::endl;
+    25	
+    26	#include "ArraySet.h"
+    27	
+    28	void displayBag(ArraySet<std::string> abag) {
+    29	
+    30	   cout << "The bag contains "
+    31	        << abag.getCurrentSize()
+    32	        << " items:"
+    33	        << endl;
+    34	
+    35	   std::vector<std::string> bagItems = abag.toVector();
+    36	
+    37	   int numberOfEntries = (int)bagItems.size();
+    38	
+    39	   for (int i(0); i < numberOfEntries; ++i) {
+    40	      cout << bagItems[i]
+    41	           << " ";
+    42	   }
+    43	
+    44	   cout << endl
+    45	        << endl;
+    46	}
+    47	
+    48	void bagTester(ArraySet<std::string>& bag, ArraySet<std::string> bag2) {
+    49	
+    50	   cout << "isEmpty: returns "
+    51	        << bag.isEmpty()
+    52	        << "; should be 1 (true)"
+    53	        << endl;
+    54	
+    55	   displayBag(bag);
+    56	
+    57	   std::string items[] = {"one", "two", "three", "four", "five",
+    58	                          "one"};
+    59	
+    60	   cout << "Add 6 items to the bag: "
+    61	        << endl;
+    62	
+    63	   for (int i(0); i < 6; ++i) {
+    64	      bag.add(items[i]);
+    65	      bag2.add("Hello");
+    66	   }
+    67	
+    68	   displayBag(bag);
+    69	   displayBag(bag2);
+    70	
+    71	   cout << "bag.difference(bag2): "
+    72	        << "should return one, two, three, four, five" << endl;
+    73	   displayBag(bag.difference(bag2));
+    74	
+    75	
+    76	   cout << "bag2.difference(bag): "
+    77	        << "should return olny a single Hello" << endl;
+    78	   displayBag(bag2.difference(bag));
+    79	
+    80	   cout << "isEmpty(): returns "
+    81	        << bag.isEmpty()
+    82	        << "; should be 0 (false)"
+    83	        << endl;
+    84	
+    85	   cout << "getCurrentSize(): returns "
+    86	        << bag.getCurrentSize()
+    87	        << "; should be 6"
+    88	        << endl;
+    89	
+    90	   cout << "Try to add another entry: add(\"extra\") returns "
+    91	        << bag.add("extra")
+    92	        << "; should be 0 (false)"
+    93	        << endl;
+    94	
+    95	   cout << "contains(\"three\"): returns "
+    96	        << bag.contains("three")
+    97	        << "; should be 1 (true)"
+    98	        << endl;
+    99	
+   100	   cout << "contains(\"ten\"): returns "
+   101	        << bag.contains("ten")
+   102	        << "; should be 0 (false)"
+   103	        << endl;
+   104	
+   105	   cout << "getFrequencyOf(\"one\"): returns "
+   106	        << bag.getFrequencyOf("one")
+   107	        << "; should be 2"
+   108	        << endl;
+   109	
+   110	   cout << "remove(\"one\"): returns "
+   111	        << bag.remove("one")
+   112	        << "; should be 1 (true)"
+   113	        << endl;
+   114	
+   115	   cout << "getFrequencyOf(\"one\"): returns "
+   116	        << bag.getFrequencyOf("one")
+   117	        << "; should be 1"
+   118	        << endl;
+   119	
+   120	   cout << "remove(\"one\"): returns "
+   121	        << bag.remove("one")
+   122	        << "; should be 1 (true)"
+   123	        << endl;
+   124	
+   125	   cout << "remove(\"one\"): returns "
+   126	        << bag.remove("one")
+   127	        << "; should be 0 (false)"
+   128	        << endl;
+   129	
+   130	   cout << "getFrequencyOf(\"one\"): returns "
+   131	        << bag.getFrequencyOf("one")
+   132	        << "; should be 0"
+   133	        << endl;
+   134	
+   135	   cout << endl;
+   136	
+   137	   displayBag(bag);
+   138	
+   139	
+   140	
+   141	   cout << "After clearing the bag, ";
+   142	
+   143	   bag.clear();
+   144	   cout << "isEmpty(): returns "
+   145	        << bag.isEmpty()
+   146	        << "; should be 1 (true)"
+   147	        << endl;
+   148	}
+   149	
+   150	int main() {
+   151	
+   152	   ArraySet<std::string> bag;
+   153	   ArraySet<std::string> bag2;
+   154	
+   155	   cout << "Testing the Array-Based Bag:"
+   156	        << endl
+   157	        << "The initial set is empty."
+   158	        << endl;
+   159	
+   160	   bagTester(bag, bag2);
+   161	
+   162	   cout << "All done!"
+   163	        << endl;
+   164	
+   165	   return EXIT_SUCCESS;
+   166	}
+[4makka[24m:[1m~/cs1521/labs/lab3[0m% cat -n ArraySetTester.cpp[P[P[P[P[P[P
+     1	/** @file
+     2	 *
+     3	 *  @course CS1521
+     4	 *  @section 1
+     5	 *  @term Spring 2019
+     6	 *
+     7	 *  Implementation file for the class Arrayset.
+     8	 *
+     9	 *  Adapted from pages 101-111 in Carrano 7e.
+    10	 *
+    11	 *  @author Frank M. Carrano
+    12	 *  @author Timothy Henry
+    13	 *  @author Steve Holtz
+    14	 *
+    15	 *  @date 05 Feb 2019
+    16	 *
+    17	 *  @version 7.0 */
+    18	
+    19	#include <vector>
+    20	
+    21	template <typename ItemType>
+    22	int ArraySet<ItemType>::getCurrentSize() const {
+    23	
+    24	   return itemCount;
+    25	}
+    26	
+    27	template <typename ItemType>
+    28	bool ArraySet<ItemType>::isEmpty() const {
+    29	
+    30	   return !itemCount; // itemCount == 0;
+    31	}
+    32	
+    33	template <typename ItemType>
+    34	bool ArraySet<ItemType>::add(const ItemType& newEntry) {
+    35	
+    36	   bool hasRoomToAdd(itemCount < maxItems && !contains(newEntry));
+    37	
+    38	   if (hasRoomToAdd) {
+    39	      items[itemCount] = newEntry;
+    40	      ++itemCount;
+    41	   }
+    42	
+    43	   return hasRoomToAdd;
+    44	}
+    45	
+    46	template <typename ItemType>
+    47	bool ArraySet<ItemType>::remove(const ItemType& anEntry) {
+    48	
+    49	   int locatedIndex(getIndexOf(anEntry) );
+    50	   bool canRemoveItem(!isEmpty() && locatedIndex > -1);
+    51	
+    52	   if (canRemoveItem) {
+    53	      --itemCount;
+    54	      items[locatedIndex] = items[itemCount];
+    55	   }
+    56	
+    57	   return canRemoveItem;
+    58	}
+    59	
+    60	template <typename ItemType>
+    61	void ArraySet<ItemType>::clear() {
+    62	
+    63	   itemCount = 0;
+    64	}
+    65	
+    66	template <typename ItemType>
+    67	bool ArraySet<ItemType>::contains(const ItemType& anEntry) const {
+    68	
+    69	   bool isFound(false);
+    70	   int curIndex(0);
+    71	
+    72	   while (!isFound && curIndex < itemCount) {
+    73	      isFound = anEntry == items[curIndex];
+    74	      ++curIndex; // Does not matter if extra increment occurs
+    75	   }
+    76	
+    77	   return isFound;
+    78	}
+    79	
+    80	template <typename ItemType>
+    81	int ArraySet<ItemType>::getFrequencyOf(const ItemType& anEntry) const
+    82	{
+    83	
+    84	   int frequency(0);
+    85	   int curIndex(0);
+    86	
+    87	   while (curIndex < itemCount) {
+    88	      if (items[curIndex] == anEntry) {
+    89	         ++frequency;
+    90	      }
+    91	      ++curIndex;
+    92	   }
+    93	
+    94	   return frequency;
+    95	}
+    96	
+    97	template <typename ItemType>
+    98	std::vector<ItemType> ArraySet<ItemType>::toVector() const {
+    99	
+   100	   std::vector<ItemType> bagContents;
+   101	
+   102	   for (int i(0); i < itemCount; ++i) {
+   103	      bagContents.push_back(items[i]);
+   104	   }
+   105	
+   106	   return bagContents;
+   107	}
+   108	
+   109	template <typename ItemType>
+   110	int ArraySet<ItemType>::getIndexOf(const ItemType& target) const {
+   111	
+   112	   bool isFound(false);
+   113	   int targetIndex(-1);
+   114	   int searchIndex(0);
+   115	
+   116	   while (!isFound && searchIndex < itemCount) {
+   117	      isFound = items[searchIndex] == target;
+   118	
+   119	      if (isFound) {
+   120	         targetIndex = searchIndex;
+   121	      }
+   122	      ++searchIndex; // Does not matter if extra increment occurs
+   123	   }
+   124	
+   125	   return targetIndex;
+   126	}
+   127	
+   128	template <typename ItemType>
+   129	ArraySet<ItemType> ArraySet<ItemType>::difference(const ArraySet<ItemType>& set2) const{
+   130	
+   131	   ArraySet<ItemType> setItems;
+   132	
+   133	   int index = 0;
+   134	   std::string target;
+   135	
+   136	   while(index < itemCount) {
+   137	      target = items[index];
+   138	      if(set2.contains(target) && contains(target)) {
+   139	         if(getFrequencyOf(target) > set2.getFrequencyOf(target)) {
+   140	            setItems.add(target);
+   141	         }
+   142	      }
+   143	      else if(!set2.contains(target)) {
+   144	         setItems.add(target);
+   145	      }
+   146	      ++index;
+   147	   }
+   148	   return setItems;
+   149	}
+[4makka[24m:[1m~/cs1521/labs/lab3[0m% cat -n ArraySet.cpp[K[K[Kh
+     1	/** @ArraySet.h
+     2	 *
+     3	 *  @course CS1521
+     4	 *  @section 1
+     5	 *  @term Spring 2019
+     6	 *
+     7	 *  Header file for an array-based implementation of the ADT bag.
+     8	 *
+     9	 *  Adapted from page 100 in Carrano 7e.
+    10	 *
+    11	 *  @author Frank M. Carrano
+    12	 *  @author Timothy Henry
+    13	 *  @author Steve Holtz
+    14	 *
+    15	 *  @date 08 Feb 2019
+    16	 *
+    17	 *  @version 7.0 */
+    18	
+    19	#ifndef ARRAY_SET_
+    20	#define ARRAY_SET_
+    21	
+    22	#include <vector>
+    23	
+    24	#include "SetInterface.h"
+    25	
+    26	/** @class ArraySet ArraySet.h "ArraySet.h"
+    27	 *
+    28	 *  Specification of an array-based ADT Set. */
+    29	template <typename ItemType>
+    30	class ArraySet : public SetInterface<ItemType> {
+    31	  private:
+    32	   /** Maximum capacity of this set. */
+    33	   static const int DEFAULT_CAPACITY = 6;
+    34	
+    35	   /** Data storage. */
+    36	   ItemType items[DEFAULT_CAPACITY];
+    37	
+    38	   /** Number of items in this set. */
+    39	   int itemCount = 0;
+    40	
+    41	   /** Maximum capacity of this set. */
+    42	   int maxItems = DEFAULT_CAPACITY;
+    43	
+    44	   /** Gets the index of target in the array 'items' in this set.
+    45	    *
+    46	    * @param target The ItemType value to retrieve the index of.
+    47	    *
+    48	    * @return The index of the element in the array 'items' that
+    49	    *         contains 'target' or -1 if the array does not contain
+    50	    *         'target'. */
+    51	   int getIndexOf(const ItemType& target) const;
+    52	
+    53	  public:
+    54	   /** Default constructor. */
+    55	   ArraySet() = default;
+    56	
+    57	   /** Virtual destructor. */
+    58	   virtual ~ArraySet() = default;
+    59	
+    60	   /**  Returns itemCount of the ArraySet.
+    61	    *
+    62	    * @return Int, of how mamy items added to the Set. */
+    63	   virtual int getCurrentSize() const;
+    64	
+    65	   /**  Check if Empty.
+    66	    *
+    67	    * @return bool if no items in container */
+    68	   virtual bool isEmpty() const;
+    69	
+    70	   /**  Add item to array.
+    71	    *
+    72	    * @post Item added to arraySet.
+    73	    *
+    74	    * @param const ItemType  item to add to array
+    75	    *
+    76	    * @return bool if item was added succesfully. */
+    77	   virtual bool add(const ItemType& newEntry);
+    78	
+    79	   /**  Remove Item from Set.
+    80	    * @post if found item is removed.
+    81	    *
+    82	    * @param anEntry item of ItemType.
+    83	    *
+    84	    * @return Bool for if succesful removal of item. */
+    85	   virtual bool remove(const ItemType& anEntry);
+    86	
+    87	   /**  Clear Set.
+    88	    *
+    89	    * @post Set is Empty. */
+    90	   virtual void clear();
+    91	
+    92	   /**  amount of items in the bag matching target.
+    93	    * @param anEntry of ItemType.
+    94	    * @return int amount of how many targets. */
+    95	   virtual int getFrequencyOf(const ItemType& anEntry) const;
+    96	
+    97	   /**  if Set contains a target.
+    98	    * @param parameterName Description of parameter. (Repeat for
+    99	    *                      multiple parameters.)
+   100	    *
+   101	    * @return bool if an entry is found.*/
+   102	   virtual bool contains(const ItemType& anEntry) const;
+   103	
+   104	   /**  check for the difference between Sets..
+   105	    * @param ArraySet<ItemType>.
+   106	    *
+   107	    * @return ArraySet<itemType> a container contains items of the difference. */
+   108	   virtual ArraySet<ItemType> difference(const ArraySet<ItemType>& set2) const;
+   109	
+   110	   /**  convert arraySet to a vector.
+   111	    *
+   112	    * @return a vector of type ItemTypw. */
+   113	   virtual std::vector<ItemType> toVector() const;
+   114	};
+   115	
+   116	#include "ArraySet.cpp"
+   117	
+   118	#endif
+[4makka[24m:[1m~/cs1521/labs/lab3[0m% git --no-pager log --no-color
+commit d941913477bb42bbfbf66cb143bcdc56c94d4fa9
+Author: staub054 <staub054@d.umn.edu>
+Date:   Mon Feb 18 14:03:41 2019 -0600
+
+    Final Commit, Passes all tests, and know expirenced errors. Final comments and name changes to satisfy lab requirments added.
+
+commit b53f6a2b47f2f6492cc2b074164e853d9d5e7bf3
+Author: staub054 <staub054@d.umn.edu>
+Date:   Sun Feb 10 07:01:57 2019 -0600
+
+    Add all Testes speficed in lab3 description, currently pass without issues.
+
+commit 19144f9610b9abbb8bbcd5a5bae6849d9698a6cc
+Author: staub054 <staub054@d.umn.edu>
+Date:   Sun Feb 10 03:08:20 2019 -0600
+
+    Fixed returned object not looking for dups in both bags. Added inital tests as described in the Lab3 outline.
+
+commit 6fc014b0a0bc68269470dd5f33968f20b3b4a5f8
+Author: staub054 <staub054@d.umn.edu>
+Date:   Sun Feb 10 02:36:31 2019 -0600
+
+    Basic difference function added to ArraySet.cpp functional For simple tests.
+
+commit 262dbcd868d2b58b581333b5e0482771b8f31692
+Author: staub054 <staub054@d.umn.edu>
+Date:   Sun Feb 10 00:20:51 2019 -0600
+
+    Inital file Setup for Lab3
+[4makka[24m:[1m~/cs1521/labs/lab3[0m% cd build
+[4makka[24m:[1m~/cs1521/labs/lab3/build[0m% make
+[ 50%] [32mBuilding CXX object CMakeFiles/lab3.dir/lab3.cpp.o[0m
+[100%] [32m[1mLinking CXX executable lab3[0m
+[100%] Built target lab3
+[4makka[24m:[1m~/cs1521/labs/lab3/build[0m% ./lab3 
+Testing the Array-Based Bag:
+The initial bag is empty.
+Difference Function Tests.
+
+Dosnt allow dups
+The bag contains 2 items:
+a b 
+
+should return a bag with 1 b
+The bag contains 1 items:
+b 
+
+left and right side both Empty.
+should return an empty bag
+The bag contains 0 items:
+
+
+left side empty, right side has items.
+should return an empty bag
+The bag contains 0 items:
+
+
+right side empty, left side has items.
+should return bag with 4 items (e, f, g, h)
+The bag contains 4 items:
+e f g h 
+
+right and left side have no items in common.
+should return bag with (a, b, c, d)
+The bag contains 4 items:
+a b c d 
+
+right and left side have all same items.
+should return an empty bag
+The bag contains 0 items:
+
+
+All done!
+[4makka[24m:[1m~/cs1521/labs/lab3/build[0m% exit
+exit
+
+Script done on Tue 19 Feb 2019 04:34:51 PM CST
