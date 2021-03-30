@@ -1,0 +1,42 @@
+#include "preformOperation.h"
+
+
+void preformOperation(LinkedStack<int>* val_stack, LinkedStack<char>* op_stack) {
+   int RHSop = val_stack->peek();
+   val_stack->pop();
+   int LHSop = val_stack->peek();
+   val_stack->pop();
+   char op = op_stack->peek();
+   op_stack->pop();
+   if(op == '+') {
+      int result = (LHSop + RHSop);
+      //cout << LHSop << op << RHSop << endl;
+      val_stack->push(result);
+      std::cout << val_stack->peek() << std::endl;
+   }
+   else if(op == '-') {
+      int result = (LHSop - RHSop);
+      //cout << LHSop << op << RHSop << endl;
+      val_stack->push(result);
+   }
+   else if(op == '*') {
+      //cout << LHSop << op << RHSop << endl;
+      int result = (LHSop * RHSop);
+      val_stack->push(result);
+   }
+   else if(op == '/') {
+      try {
+         if(RHSop == 0) {
+            throw "Divison by Zero Error";
+         }
+         int result = (LHSop/ RHSop);
+         val_stack->push(result);
+      }
+      catch (const char* msg) {
+         std::cerr << msg << std::endl;
+      }
+   }
+   else{
+      std::cout << LHSop << op << RHSop << " = " << val_stack->peek() << std::endl;
+   }
+}

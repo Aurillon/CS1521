@@ -1,0 +1,22 @@
+#include <iostream>
+#include <map>
+#include <string>
+#include <fstream>
+
+#include "LinkedStack.h"
+
+using std::cout;
+using std::cin;
+using std::endl;
+
+int main() {
+
+   std::string input;
+
+
+
+
+
+
+
+}

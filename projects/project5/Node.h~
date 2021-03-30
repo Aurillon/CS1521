@@ -1,0 +1,29 @@
+#ifndef NODE_
+#define NODE_
+
+#include <memory>
+
+template <typename ItemType>
+class Node {
+  private:
+   ItemType item;
+   std::shared_ptr<NodeNode<ItemType>> next;
+
+  public:
+   Node() = default;
+   Node(const ItemType& anItem);
+   Node(const ItemType& anItem,
+        std::shared_ptr<NodeNode<ItemType>> nextNodePtr);
+
+   virtual ~Node() = default;
+
+   void setItem(const ItemType& anItem);
+   void setNext(std::shared_ptr<NodeNode<ItemType>> nextNodePtr);
+
+   ItemType getItem() const;
+   auto getNext() const;
+};
+
+#include "Node.cpp"
+
+#endif
