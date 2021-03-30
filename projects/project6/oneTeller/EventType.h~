@@ -1,0 +1,16 @@
+#ifndef EVENT_TYPE_
+#define EVENT_TYPE_
+
+enum class EventType {
+   NONE,
+   ARRIVAL,
+   DEPARTURE
+      };
+
+friend std::ostream& operator<<(std::ostream& os, const EventType obj)
+{
+   os << static_cast<std::underlying_type<EventType>::type>(obj);
+   return os;
+}
+
+#endif
