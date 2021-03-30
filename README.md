@@ -1,2 +1,4 @@
 # CS2
-UMD CS2 Class
+UMD CS1521
+
+All Projects/Labs
